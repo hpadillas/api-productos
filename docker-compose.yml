@@ -1,0 +1,68 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+      MYSQL_DATABASE: compras
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: "123456"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: "123456"
+      UPLOAD_LIMIT: 64M
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+
+  backend:
+    build:
+      context: ./api-seguimiento
+      dockerfile: Dockerfile
+    container_name: spring-backend
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/compras
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+    depends_on:
+      - mysql
+
+  frontend:
+    build:
+      context: ./productos-frontend
+      dockerfile: Dockerfile
+    container_name: angular-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:
+
+
+
+
+
+
+
+
