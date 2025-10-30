@@ -1,0 +1,74 @@
+<div class="container mt-4">
+  <h2>Editar Producto</h2>
+
+  <form [formGroup]="productoForm" (ngSubmit)="actualizar()" class="mt-3">
+    <div class="row mb-3">
+      <div class="col">
+        <label>Nombre</label>
+        <input type="text" class="form-control" formControlName="nombre" />
+      </div>
+      <div class="col">
+        <label>Precio</label>
+        <input type="number" class="form-control" formControlName="precio" />
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <label>Stock</label>
+        <input type="number" class="form-control" formControlName="stock" />
+      </div>
+      <div class="col">
+        <label>Cantidad Unidades Medida</label>
+        <input
+          type="number"
+          class="form-control"
+          formControlName="cantidadUnidadesMedida"
+        />
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <label>Categoría</label>
+        <input type="text" class="form-control" formControlName="categoria" />
+      </div>
+      <div class="col">
+        <label>Marca</label>
+        <input type="text" class="form-control" formControlName="marca" />
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <label>Unidad de Medida</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="unidadMedida"
+        />
+      </div>
+      <div class="col">
+        <label>Impuesto (%)</label>
+        <input type="number" class="form-control" formControlName="impuesto" />
+      </div>
+    </div>
+
+    <div class="form-check mb-3">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        formControlName="estado"
+        id="estado"
+      />
+      <label class="form-check-label" for="estado">Activo</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary me-2">Actualizar</button>
+    <button type="button" class="btn btn-secondary" (click)="cancelar()">
+      Cancelar
+    </button>
+  </form>
+</div>
+
+
